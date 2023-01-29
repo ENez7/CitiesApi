@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace CityInfo.Api.Controllers
 {
-    [Route("api/cities/{cityId:int}/pointsofinterest")]  // This is a child of another resource (City)
+    [Route("api/cities/{cityId:int}/[controller]")]  // This is a child of another resource (City)
     [ApiController]
     public class PointsOfInterestController : ControllerBase
     {
@@ -15,7 +15,7 @@ namespace CityInfo.Api.Controllers
             return Ok(city.PointsOfInterest);
         }
 
-        [HttpGet("pointOfInterestId:int")]
+        [HttpGet("{pointOfInterestId:int}")]
         public ActionResult<PointOfInterestDto> GetPointOfInterest(int cityId, int pointOfInterestId)
         {
             var city = CitiesDataStore.Current.Cities.FirstOrDefault(city => city.Id == cityId);
