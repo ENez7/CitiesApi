@@ -17,15 +17,11 @@ if(app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-if (app.Environment.IsProduction())
+app.UseHttpsRedirection();
+app.UseRouting();
+app.UseAuthorization();
+app.UseEndpoints(endpoints =>
 {
-    app.Run(async (context) =>
-    {
-        await context.Response.WriteAsync("Production environment");
-    });
-}
-//app.UseHttpsRedirection();
-//app.UseAuthorization();
-//app.MapControllers();
-
+    app.MapControllers(); // Routing
+});
 app.Run();
