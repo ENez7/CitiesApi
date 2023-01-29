@@ -1,3 +1,5 @@
+using Microsoft.AspNetCore.StaticFiles;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -16,6 +18,10 @@ builder.Services.AddControllers(options =>
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+// Adds singleton instance of FileExtensionContentTypeProvider to .NET Core service container.
+// This class provides information about the content type (MIME) for a given file extension. 
+// It is used to set the content type of an HTTP response based on the file extension of a file being served or downloaded.
+builder.Services.AddSingleton<FileExtensionContentTypeProvider>();
 
 var app = builder.Build();
 
