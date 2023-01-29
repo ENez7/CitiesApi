@@ -25,3 +25,4 @@ D:\Cursos\Pluralsight\ASP.NET Core 6 Web API Fundamentals\CityInfo.Api\obj\Debug
 D:\Cursos\Pluralsight\ASP.NET Core 6 Web API Fundamentals\CityInfo.Api\obj\Debug\net6.0\CityInfo.Api.pdb
 D:\Cursos\Pluralsight\ASP.NET Core 6 Web API Fundamentals\CityInfo.Api\obj\Debug\net6.0\CityInfo.Api.genruntimeconfig.cache
 D:\Cursos\Pluralsight\ASP.NET Core 6 Web API Fundamentals\CityInfo.Api\obj\Debug\net6.0\ref\CityInfo.Api.dll
+D:\Cursos\Pluralsight\ASP.NET Core 6 Web API Fundamentals\CityInfo.Api\bin\Debug\net6.0\ASP.NET Core 6 Web API Fundamentals.postman_collection.json
