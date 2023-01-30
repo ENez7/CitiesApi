@@ -10,7 +10,7 @@ builder.Services.AddControllers(options =>
     // options.InputFormatters.Add();
     // options.OutputFormatters.Add();
 
-    // To specify whether te response format is accepted or not
+    // To specify whether the response format is accepted or not
     // Example: Request XML response but it is not supported by the API
     options.ReturnHttpNotAcceptable = true;  
 })

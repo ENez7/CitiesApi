@@ -68,7 +68,7 @@ namespace CityInfo.Api.Controllers
             if (pointOfInterest == null) return NotFound();
 
             // Full update principle || User must include all fields when sending the PUT request
-            // If some field is missing, it will be set to default value or null
+            // If any field is missing, it will be set to default value or null
             pointOfInterest.Name = pointOfInterestForUpdate.Name;
             pointOfInterest.Description = pointOfInterestForUpdate.Description;
 
@@ -99,6 +99,20 @@ namespace CityInfo.Api.Controllers
             
             pointOfInterest.Name = pointOfInterestToPatch.Name;
             pointOfInterest.Description = pointOfInterestToPatch.Description;
+            
+            return NoContent();
+        }
+
+        [HttpDelete("{pointOfInterestId:int}")]
+        public ActionResult DeletePointOfInterest(int cityId, int pointOfInterestId)
+        {
+            var city = CitiesDataStore.Current.Cities.FirstOrDefault(city => city.Id == cityId);
+            if (city == null) return NotFound();
+
+            var pointOfInterest = city.PointsOfInterest.FirstOrDefault(point => point.Id == pointOfInterestId);
+            if (pointOfInterest == null) return NotFound();
+
+            city.PointsOfInterest.Remove(pointOfInterest);
             
             return NoContent();
         }
