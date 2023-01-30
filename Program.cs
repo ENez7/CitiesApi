@@ -13,7 +13,9 @@ builder.Services.AddControllers(options =>
     // To specify whether te response format is accepted or not
     // Example: Request XML response but it is not supported by the API
     options.ReturnHttpNotAcceptable = true;  
-}).AddXmlDataContractSerializerFormatters();  // This line adds XML support to the API
+})
+    .AddNewtonsoftJson()
+    .AddXmlDataContractSerializerFormatters();  // This line adds XML support to the API
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
