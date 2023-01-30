@@ -54,5 +54,24 @@ namespace CityInfo.Api.Controllers
                 },
                 finalPointOfInterest);
         }
+
+        // PUT: Full updates
+        [HttpPut("{pointOfInterestId:int}")]
+        public ActionResult UpdatePointOfInterest(int cityId, int pointOfInterestId,
+            PointOfInterestForUpdateDto pointOfInterestForUpdate)
+        {
+            var city = CitiesDataStore.Current.Cities.FirstOrDefault(city => city.Id == cityId);
+            if (city == null) return NotFound();
+
+            var pointOfInterest = city.PointsOfInterest.FirstOrDefault(point => point.Id == pointOfInterestId);
+            if (pointOfInterest == null) return NotFound();
+
+            // Full update principle || User must include all fields when sending the PUT request
+            // If some field is missing, it will be set to default value or null
+            pointOfInterest.Name = pointOfInterestForUpdate.Name;
+            pointOfInterest.Description = pointOfInterestForUpdate.Description;
+
+            return NoContent();
+        }
     }
 }
