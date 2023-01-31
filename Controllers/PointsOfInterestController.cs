@@ -10,13 +10,13 @@ namespace CityInfo.Api.Controllers
     public class PointsOfInterestController : ControllerBase
     {
         private readonly ILogger<PointsOfInterestController> _logger;
-        private readonly LocalMailService _mailService;
-        public PointsOfInterestController(ILogger<PointsOfInterestController> logger, LocalMailService mailService)  // Constructor injection
+        private readonly IMailService _localMailService;
+        public PointsOfInterestController(ILogger<PointsOfInterestController> logger, IMailService localMailService)  // Constructor injection
         {
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
             // If constructor injection is not feasible, we can request containers in this way
             // HttpContext.RequestServices.GetService() but constructor injection is always preferred
-            _mailService = mailService ?? throw new ArgumentNullException(nameof(mailService));
+            _localMailService = localMailService ?? throw new ArgumentNullException(nameof(localMailService));
         }
 
         [HttpGet]
@@ -136,7 +136,7 @@ namespace CityInfo.Api.Controllers
             if (pointOfInterest == null) return NotFound();
 
             city.PointsOfInterest.Remove(pointOfInterest);
-            _mailService.Send("Point of interest deleted", pointOfInterest.ToString());
+            _localMailService.Send("Point of interest deleted", pointOfInterest.ToString());
             
             return NoContent();
         }

@@ -35,8 +35,11 @@ builder.Services.AddSwaggerGen();
 // This class provides information about the content type (MIME) for a given file extension. 
 // It is used to set the content type of an HTTP response based on the file extension of a file being served or downloaded.
 builder.Services.AddSingleton<FileExtensionContentTypeProvider>();
-
-builder.Services.AddTransient<LocalMailService>();  // Transient lifetime services are created each time they are requested - lightweight, stateless services
+#if DEBUG  // Compiler directive
+builder.Services.AddTransient<IMailService, LocalMailService>();  // Transient lifetime services are created each time they are requested - lightweight, stateless services
+#else
+builder.Services.AddTransient<IMailService, CloudMailService>();
+#endif
 // builder.Services.AddScoped<>();     // Scoped lifetime services are created once per request
 // builder.Services.AddSingleton<>();  // Singleton lifetime services are created the first time they are requested
 
