@@ -5,9 +5,9 @@ namespace CityInfo.Api;
 public class CitiesDataStore
 {
     public List<CityDto> Cities { get; set; }
-    public static CitiesDataStore Current { get; set; } = new();  // Singleton
+    // public static CitiesDataStore Current { get; } = new();  // Singleton
 
-    private CitiesDataStore()
+    public CitiesDataStore()
     {
         Cities = new List<CityDto>
         {

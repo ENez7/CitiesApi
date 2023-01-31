@@ -1,3 +1,4 @@
+using CityInfo.Api;
 using CityInfo.Api.Services;
 using Microsoft.AspNetCore.StaticFiles;
 using Serilog;
@@ -42,6 +43,8 @@ builder.Services.AddTransient<IMailService, CloudMailService>();
 #endif
 // builder.Services.AddScoped<>();     // Scoped lifetime services are created once per request
 // builder.Services.AddSingleton<>();  // Singleton lifetime services are created the first time they are requested
+
+builder.Services.AddSingleton<CitiesDataStore>();
 
 var app = builder.Build();
 
