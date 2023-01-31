@@ -8,12 +8,22 @@ namespace CityInfo.Api.Controllers
     [ApiController]
     public class PointsOfInterestController : ControllerBase
     {
+        private readonly ILogger<PointsOfInterestController> _logger;
+        public PointsOfInterestController(ILogger<PointsOfInterestController> logger)  // Constructor injection
+        {
+            _logger = logger ?? throw new ArgumentNullException(nameof(logger));
+            // If constructor injection is not feasible, we can request containers in this way
+            // HttpContext.RequestServices.GetService() but constructor injection is always preferred
+        }
+
         [HttpGet]
         public ActionResult<IEnumerable<PointOfInterestDto>> GetPointsOfInterest(int cityId)
         {
             var city = CitiesDataStore.Current.Cities.FirstOrDefault(city => city.Id == cityId);
-            if (city == null) return NotFound();
-            return Ok(city.PointsOfInterest);
+            if (city != null) return Ok(city.PointsOfInterest);
+            
+            _logger.LogInformation("City with ID: {CityId} wasn't found when accessing points of interest", cityId);
+            return NotFound();
         }
 
         [HttpGet("{pointOfInterestId:int}", Name = "GetPointOfInterest")]
@@ -50,7 +60,7 @@ namespace CityInfo.Api.Controllers
             return CreatedAtRoute("GetPointOfInterest", 
                 new
                 {
-                    cityId = cityId,
+                    cityId,
                     pointOfInterestId = finalPointOfInterest.Id
                 },
                 finalPointOfInterest);

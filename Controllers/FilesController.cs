@@ -12,8 +12,8 @@ namespace CityInfo.Api.Controllers
         // Inject FileExtensionContentTypeProvider service for MIME or to set the content type of an HTTP response
         public FilesController(FileExtensionContentTypeProvider fileExtensionContentTypeProvider)
         {
-            _fileExtensionContentTypeProvider = fileExtensionContentTypeProvider; 
-                                                // ?? throw new ArgumentNullException(nameof(fileExtensionContentTypeProvider));
+            _fileExtensionContentTypeProvider = fileExtensionContentTypeProvider 
+                                                ?? throw new ArgumentNullException(nameof(fileExtensionContentTypeProvider));
         }
         
         [HttpGet("{fileId}")]
