@@ -1,6 +1,8 @@
 using CityInfo.Api;
+using CityInfo.Api.DbContexts;
 using CityInfo.Api.Services;
 using Microsoft.AspNetCore.StaticFiles;
+using Microsoft.EntityFrameworkCore;
 using Serilog;
 
 Log.Logger = new LoggerConfiguration()
@@ -45,6 +47,9 @@ builder.Services.AddTransient<IMailService, CloudMailService>();
 // builder.Services.AddSingleton<>();  // Singleton lifetime services are created the first time they are requested
 
 builder.Services.AddSingleton<CitiesDataStore>();
+builder.Services.AddDbContext<CityInfoContext>(
+    optionsBuilder => optionsBuilder.UseSqlServer(
+        "Data Source=DESKTOP-S5G74PE;Initial Catalog=CitiesApi;Integrated Security=True"));
 
 var app = builder.Build();
 
