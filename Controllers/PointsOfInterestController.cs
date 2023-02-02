@@ -47,6 +47,7 @@ namespace CityInfo.Api.Controllers
         {
             if (!await _cityInfoRepository.CityExistsAsync(cityId))
             {
+                _logger.LogInformation("City with ID: {CityId} was not found", cityId);
                 return NotFound();
             }
 
@@ -62,16 +63,17 @@ namespace CityInfo.Api.Controllers
         {
             if (!await _cityInfoRepository.CityExistsAsync(cityId))
             {
+                _logger.LogInformation("City with ID: {CityId} was not found", cityId);
                 return NotFound();
             }
 
             var finalPointOfInterest = _mapper.Map<PointOfInterest>(pointOfInterest);
-            
+
             await _cityInfoRepository.AddPointOfInterestForCityAsync(cityId, finalPointOfInterest);
-            await _cityInfoRepository.SaveChangesAsync();  // Any error at this point implies status code 500
+            await _cityInfoRepository.SaveChangesAsync(); // Any error at this point implies status code 500
 
             var createdResource = _mapper.Map<PointOfInterestDto>(finalPointOfInterest);
-            
+
             return CreatedAtRoute("GetPointOfInterest",
                 new
                 {
@@ -80,7 +82,7 @@ namespace CityInfo.Api.Controllers
                 },
                 createdResource);
         }
-        
+
         // PUT: Full updates
         [HttpPut("{pointOfInterestId:int}")]
         public async Task<ActionResult> UpdatePointOfInterest(int cityId, int pointOfInterestId,
@@ -88,13 +90,15 @@ namespace CityInfo.Api.Controllers
         {
             if (!await _cityInfoRepository.CityExistsAsync(cityId))
             {
+                _logger.LogInformation("City with ID: {CityId} was not found", cityId);
                 return NotFound();
             }
 
             var pointOfInterestEntity = await _cityInfoRepository.GetPointOfInterestAsync(cityId, pointOfInterestId);
             if (pointOfInterestEntity == null)
             {
-                _logger.LogInformation("Point of interest with ID: {PointOfInterestId} was not found", pointOfInterestId);
+                _logger.LogInformation("Point of interest with ID: {PointOfInterestId} was not found",
+                    pointOfInterestId);
                 return NotFound();
             }
 
@@ -103,39 +107,46 @@ namespace CityInfo.Api.Controllers
             _mapper.Map(pointOfInterestForUpdate, pointOfInterestEntity);
 
             await _cityInfoRepository.SaveChangesAsync();
-        
+
             return NoContent();
         }
-        
-        // // PATCH: Partial update
-        // [HttpPatch("{pointOfInterestId:int}")]
-        // public ActionResult PartiallyUpdatePointOfInterest(int cityId, int pointOfInterestId,
-        //     JsonPatchDocument<PointOfInterestForUpdateDto> patchDocument)
-        // {
-        //     var city = _citiesDataStore.Cities.FirstOrDefault(city => city.Id == cityId);
-        //     if (city == null) return NotFound();
-        //
-        //     var pointOfInterest = city.PointsOfInterest.FirstOrDefault(point => point.Id == pointOfInterestId);
-        //     if (pointOfInterest == null) return NotFound();
-        //
-        //     var pointOfInterestToPatch = new PointOfInterestForUpdateDto
-        //     {
-        //         Name = pointOfInterest.Name,
-        //         Description = pointOfInterest.Description
-        //     };
-        //
-        //     patchDocument.ApplyTo(pointOfInterestToPatch, ModelState);
-        //
-        //     if (!ModelState.IsValid) return BadRequest(ModelState);
-        //     if (!TryValidateModel(pointOfInterestToPatch))
-        //         return BadRequest(ModelState); // Check if the Dto is valid after aplying patch
-        //
-        //     pointOfInterest.Name = pointOfInterestToPatch.Name;
-        //     pointOfInterest.Description = pointOfInterestToPatch.Description;
-        //
-        //     return NoContent();
-        // }
-        //
+
+        // PATCH: Partial update
+        [HttpPatch("{pointOfInterestId:int}")]
+        public async Task<ActionResult> PartiallyUpdatePointOfInterest(int cityId, int pointOfInterestId,
+            JsonPatchDocument<PointOfInterestForUpdateDto> patchDocument)
+        {
+            if (!await _cityInfoRepository.CityExistsAsync(cityId))
+            {
+                _logger.LogInformation("City with ID: {CityId} was not found", cityId);
+                return NotFound();
+            }
+
+            var pointOfInterestEntity = await _cityInfoRepository.GetPointOfInterestAsync(cityId, pointOfInterestId);
+            if (pointOfInterestEntity == null)
+            {
+                _logger.LogInformation("Point of interest with ID: {PointOfInterestId} was not found",
+                    pointOfInterestId);
+                return NotFound();
+            }
+
+            var pointOfInterestToPatch = _mapper.Map<PointOfInterestForUpdateDto>(pointOfInterestEntity);
+            
+            patchDocument.ApplyTo(pointOfInterestToPatch, ModelState);
+
+            if (!ModelState.IsValid) return BadRequest(ModelState);
+            if (!TryValidateModel(pointOfInterestToPatch))
+                return BadRequest(ModelState); // Check if the Dto is valid after aplying patch
+
+            // pointOfInterest.Name = pointOfInterestToPatch.Name;
+            // pointOfInterest.Description = pointOfInterestToPatch.Description;
+
+            _mapper.Map(pointOfInterestToPatch, pointOfInterestEntity);
+            await _cityInfoRepository.SaveChangesAsync();
+            
+            return NoContent();
+        }
+
         // [HttpDelete("{pointOfInterestId:int}")]
         // public ActionResult DeletePointOfInterest(int cityId, int pointOfInterestId)
         // {
