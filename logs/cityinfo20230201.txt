@@ -1,0 +1,158 @@
+2023-02-01 21:39:11.294 -04:00 [DBG] An 'IServiceProvider' was created for internal use by Entity Framework.
+2023-02-01 21:39:11.772 -04:00 [INF] Entity Framework Core 6.0.13 initialized 'CityInfoContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer:6.0.13' with options: None
+2023-02-01 21:39:11.854 -04:00 [DBG] DetectChanges starting for 'CityInfoContext'.
+2023-02-01 21:39:11.856 -04:00 [DBG] DetectChanges completed for 'CityInfoContext'.
+2023-02-01 21:39:11.926 -04:00 [DBG] 'CityInfoContext' disposed.
+2023-02-01 22:17:22.616 -04:00 [DBG] An 'IServiceProvider' was created for internal use by Entity Framework.
+2023-02-01 22:17:23.114 -04:00 [INF] Entity Framework Core 6.0.13 initialized 'CityInfoContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer:6.0.13' with options: None
+2023-02-01 22:17:23.314 -04:00 [DBG] Migrating using database 'CitiesApi' on server 'DESKTOP-S5G74PE'.
+2023-02-01 22:17:23.319 -04:00 [DBG] Opening connection to database 'CitiesApi' on server 'DESKTOP-S5G74PE'.
+2023-02-01 22:17:23.622 -04:00 [DBG] An error occurred using the connection to database 'CitiesApi' on server 'DESKTOP-S5G74PE'.
+2023-02-01 22:17:23.623 -04:00 [DBG] Opening connection to database 'CitiesApi' on server 'DESKTOP-S5G74PE'.
+2023-02-01 22:17:23.624 -04:00 [DBG] An error occurred using the connection to database 'CitiesApi' on server 'DESKTOP-S5G74PE'.
+2023-02-01 22:17:23.656 -04:00 [DBG] Opening connection to database 'master' on server 'DESKTOP-S5G74PE'.
+2023-02-01 22:17:23.667 -04:00 [DBG] Opened connection to database 'master' on server 'DESKTOP-S5G74PE'.
+2023-02-01 22:17:23.672 -04:00 [DBG] Creating DbCommand for 'ExecuteNonQuery'.
+2023-02-01 22:17:23.677 -04:00 [DBG] Created DbCommand for 'ExecuteNonQuery' (4ms).
+2023-02-01 22:17:23.683 -04:00 [DBG] Executing DbCommand [Parameters=[], CommandType='"Text"', CommandTimeout='60']
+CREATE DATABASE [CitiesApi];
+2023-02-01 22:17:23.920 -04:00 [INF] Executed DbCommand (237ms) [Parameters=[], CommandType='"Text"', CommandTimeout='60']
+CREATE DATABASE [CitiesApi];
+2023-02-01 22:17:23.922 -04:00 [DBG] Creating DbCommand for 'ExecuteNonQuery'.
+2023-02-01 22:17:23.922 -04:00 [DBG] Created DbCommand for 'ExecuteNonQuery' (0ms).
+2023-02-01 22:17:23.923 -04:00 [DBG] Executing DbCommand [Parameters=[], CommandType='"Text"', CommandTimeout='60']
+IF SERVERPROPERTY('EngineEdition') <> 5
+BEGIN
+    ALTER DATABASE [CitiesApi] SET READ_COMMITTED_SNAPSHOT ON;
+END;
+2023-02-01 22:17:23.982 -04:00 [INF] Executed DbCommand (59ms) [Parameters=[], CommandType='"Text"', CommandTimeout='60']
+IF SERVERPROPERTY('EngineEdition') <> 5
+BEGIN
+    ALTER DATABASE [CitiesApi] SET READ_COMMITTED_SNAPSHOT ON;
+END;
+2023-02-01 22:17:23.983 -04:00 [DBG] Closing connection to database 'master' on server 'DESKTOP-S5G74PE'.
+2023-02-01 22:17:23.986 -04:00 [DBG] Closed connection to database 'master' on server 'DESKTOP-S5G74PE'.
+2023-02-01 22:17:23.988 -04:00 [DBG] Opening connection to database 'CitiesApi' on server 'DESKTOP-S5G74PE'.
+2023-02-01 22:17:23.990 -04:00 [DBG] Opened connection to database 'CitiesApi' on server 'DESKTOP-S5G74PE'.
+2023-02-01 22:17:23.991 -04:00 [DBG] Creating DbCommand for 'ExecuteNonQuery'.
+2023-02-01 22:17:23.991 -04:00 [DBG] Created DbCommand for 'ExecuteNonQuery' (0ms).
+2023-02-01 22:17:23.992 -04:00 [DBG] Executing DbCommand [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT 1
+2023-02-01 22:17:23.997 -04:00 [INF] Executed DbCommand (5ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT 1
+2023-02-01 22:17:23.998 -04:00 [DBG] Closing connection to database 'CitiesApi' on server 'DESKTOP-S5G74PE'.
+2023-02-01 22:17:23.999 -04:00 [DBG] Closed connection to database 'CitiesApi' on server 'DESKTOP-S5G74PE'.
+2023-02-01 22:17:24.052 -04:00 [DBG] DetectChanges starting for 'CityInfoContext'.
+2023-02-01 22:17:24.055 -04:00 [DBG] DetectChanges completed for 'CityInfoContext'.
+2023-02-01 22:17:24.063 -04:00 [DBG] Creating DbCommand for 'ExecuteNonQuery'.
+2023-02-01 22:17:24.064 -04:00 [DBG] Created DbCommand for 'ExecuteNonQuery' (0ms).
+2023-02-01 22:17:24.064 -04:00 [DBG] Opening connection to database 'CitiesApi' on server 'DESKTOP-S5G74PE'.
+2023-02-01 22:17:24.065 -04:00 [DBG] Opened connection to database 'CitiesApi' on server 'DESKTOP-S5G74PE'.
+2023-02-01 22:17:24.066 -04:00 [DBG] Executing DbCommand [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE [__EFMigrationsHistory] (
+    [MigrationId] nvarchar(150) NOT NULL,
+    [ProductVersion] nvarchar(32) NOT NULL,
+    CONSTRAINT [PK___EFMigrationsHistory] PRIMARY KEY ([MigrationId])
+);
+2023-02-01 22:17:24.072 -04:00 [INF] Executed DbCommand (6ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE [__EFMigrationsHistory] (
+    [MigrationId] nvarchar(150) NOT NULL,
+    [ProductVersion] nvarchar(32) NOT NULL,
+    CONSTRAINT [PK___EFMigrationsHistory] PRIMARY KEY ([MigrationId])
+);
+2023-02-01 22:17:24.072 -04:00 [DBG] Closing connection to database 'CitiesApi' on server 'DESKTOP-S5G74PE'.
+2023-02-01 22:17:24.073 -04:00 [DBG] Closed connection to database 'CitiesApi' on server 'DESKTOP-S5G74PE'.
+2023-02-01 22:17:24.075 -04:00 [DBG] Opening connection to database 'CitiesApi' on server 'DESKTOP-S5G74PE'.
+2023-02-01 22:17:24.075 -04:00 [DBG] Opened connection to database 'CitiesApi' on server 'DESKTOP-S5G74PE'.
+2023-02-01 22:17:24.076 -04:00 [DBG] Creating DbCommand for 'ExecuteNonQuery'.
+2023-02-01 22:17:24.076 -04:00 [DBG] Created DbCommand for 'ExecuteNonQuery' (0ms).
+2023-02-01 22:17:24.077 -04:00 [DBG] Executing DbCommand [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT 1
+2023-02-01 22:17:24.078 -04:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT 1
+2023-02-01 22:17:24.078 -04:00 [DBG] Closing connection to database 'CitiesApi' on server 'DESKTOP-S5G74PE'.
+2023-02-01 22:17:24.079 -04:00 [DBG] Closed connection to database 'CitiesApi' on server 'DESKTOP-S5G74PE'.
+2023-02-01 22:17:24.084 -04:00 [DBG] Creating DbCommand for 'ExecuteScalar'.
+2023-02-01 22:17:24.084 -04:00 [DBG] Created DbCommand for 'ExecuteScalar' (0ms).
+2023-02-01 22:17:24.084 -04:00 [DBG] Opening connection to database 'CitiesApi' on server 'DESKTOP-S5G74PE'.
+2023-02-01 22:17:24.085 -04:00 [DBG] Opened connection to database 'CitiesApi' on server 'DESKTOP-S5G74PE'.
+2023-02-01 22:17:24.086 -04:00 [DBG] Executing DbCommand [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT OBJECT_ID(N'[__EFMigrationsHistory]');
+2023-02-01 22:17:24.097 -04:00 [INF] Executed DbCommand (11ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT OBJECT_ID(N'[__EFMigrationsHistory]');
+2023-02-01 22:17:24.098 -04:00 [DBG] Closing connection to database 'CitiesApi' on server 'DESKTOP-S5G74PE'.
+2023-02-01 22:17:24.099 -04:00 [DBG] Closed connection to database 'CitiesApi' on server 'DESKTOP-S5G74PE'.
+2023-02-01 22:17:24.100 -04:00 [DBG] Creating DbCommand for 'ExecuteReader'.
+2023-02-01 22:17:24.101 -04:00 [DBG] Created DbCommand for 'ExecuteReader' (0ms).
+2023-02-01 22:17:24.101 -04:00 [DBG] Opening connection to database 'CitiesApi' on server 'DESKTOP-S5G74PE'.
+2023-02-01 22:17:24.102 -04:00 [DBG] Opened connection to database 'CitiesApi' on server 'DESKTOP-S5G74PE'.
+2023-02-01 22:17:24.102 -04:00 [DBG] Executing DbCommand [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [MigrationId], [ProductVersion]
+FROM [__EFMigrationsHistory]
+ORDER BY [MigrationId];
+2023-02-01 22:17:24.105 -04:00 [INF] Executed DbCommand (3ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [MigrationId], [ProductVersion]
+FROM [__EFMigrationsHistory]
+ORDER BY [MigrationId];
+2023-02-01 22:17:24.107 -04:00 [DBG] A data reader was disposed.
+2023-02-01 22:17:24.107 -04:00 [DBG] Closing connection to database 'CitiesApi' on server 'DESKTOP-S5G74PE'.
+2023-02-01 22:17:24.107 -04:00 [DBG] Closed connection to database 'CitiesApi' on server 'DESKTOP-S5G74PE'.
+2023-02-01 22:17:24.115 -04:00 [INF] Applying migration '20230202013911_CityInfoDBInitialMigration'.
+2023-02-01 22:17:24.132 -04:00 [DBG] Opening connection to database 'CitiesApi' on server 'DESKTOP-S5G74PE'.
+2023-02-01 22:17:24.132 -04:00 [DBG] Opened connection to database 'CitiesApi' on server 'DESKTOP-S5G74PE'.
+2023-02-01 22:17:24.134 -04:00 [DBG] Beginning transaction with isolation level 'Unspecified'.
+2023-02-01 22:17:24.138 -04:00 [DBG] Began transaction with isolation level 'ReadCommitted'.
+2023-02-01 22:17:24.139 -04:00 [DBG] Creating DbCommand for 'ExecuteNonQuery'.
+2023-02-01 22:17:24.139 -04:00 [DBG] Created DbCommand for 'ExecuteNonQuery' (0ms).
+2023-02-01 22:17:24.140 -04:00 [DBG] Executing DbCommand [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE [Cities] (
+    [Id] int NOT NULL IDENTITY,
+    [Name] nvarchar(50) NOT NULL,
+    [Description] nvarchar(200) NULL,
+    CONSTRAINT [PK_Cities] PRIMARY KEY ([Id])
+);
+2023-02-01 22:17:24.142 -04:00 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE [Cities] (
+    [Id] int NOT NULL IDENTITY,
+    [Name] nvarchar(50) NOT NULL,
+    [Description] nvarchar(200) NULL,
+    CONSTRAINT [PK_Cities] PRIMARY KEY ([Id])
+);
+2023-02-01 22:17:24.143 -04:00 [DBG] Creating DbCommand for 'ExecuteNonQuery'.
+2023-02-01 22:17:24.143 -04:00 [DBG] Created DbCommand for 'ExecuteNonQuery' (0ms).
+2023-02-01 22:17:24.144 -04:00 [DBG] Executing DbCommand [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE [PointOfInterests] (
+    [Id] int NOT NULL IDENTITY,
+    [Name] nvarchar(50) NOT NULL,
+    [CityId] int NOT NULL,
+    CONSTRAINT [PK_PointOfInterests] PRIMARY KEY ([Id]),
+    CONSTRAINT [FK_PointOfInterests_Cities_CityId] FOREIGN KEY ([CityId]) REFERENCES [Cities] ([Id]) ON DELETE CASCADE
+);
+2023-02-01 22:17:24.146 -04:00 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE [PointOfInterests] (
+    [Id] int NOT NULL IDENTITY,
+    [Name] nvarchar(50) NOT NULL,
+    [CityId] int NOT NULL,
+    CONSTRAINT [PK_PointOfInterests] PRIMARY KEY ([Id]),
+    CONSTRAINT [FK_PointOfInterests_Cities_CityId] FOREIGN KEY ([CityId]) REFERENCES [Cities] ([Id]) ON DELETE CASCADE
+);
+2023-02-01 22:17:24.147 -04:00 [DBG] Creating DbCommand for 'ExecuteNonQuery'.
+2023-02-01 22:17:24.147 -04:00 [DBG] Created DbCommand for 'ExecuteNonQuery' (0ms).
+2023-02-01 22:17:24.148 -04:00 [DBG] Executing DbCommand [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE INDEX [IX_PointOfInterests_CityId] ON [PointOfInterests] ([CityId]);
+2023-02-01 22:17:24.149 -04:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE INDEX [IX_PointOfInterests_CityId] ON [PointOfInterests] ([CityId]);
+2023-02-01 22:17:24.150 -04:00 [DBG] Creating DbCommand for 'ExecuteNonQuery'.
+2023-02-01 22:17:24.152 -04:00 [DBG] Created DbCommand for 'ExecuteNonQuery' (2ms).
+2023-02-01 22:17:24.152 -04:00 [DBG] Executing DbCommand [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+VALUES (N'20230202013911_CityInfoDBInitialMigration', N'6.0.13');
+2023-02-01 22:17:24.154 -04:00 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+VALUES (N'20230202013911_CityInfoDBInitialMigration', N'6.0.13');
+2023-02-01 22:17:24.155 -04:00 [DBG] Committing transaction.
+2023-02-01 22:17:24.157 -04:00 [DBG] Committed transaction.
+2023-02-01 22:17:24.158 -04:00 [DBG] Disposing transaction.
+2023-02-01 22:17:24.158 -04:00 [DBG] Closing connection to database 'CitiesApi' on server 'DESKTOP-S5G74PE'.
+2023-02-01 22:17:24.159 -04:00 [DBG] Closed connection to database 'CitiesApi' on server 'DESKTOP-S5G74PE'.
+2023-02-01 22:17:24.160 -04:00 [DBG] 'CityInfoContext' disposed.
