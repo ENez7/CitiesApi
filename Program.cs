@@ -50,6 +50,7 @@ builder.Services.AddSingleton<CitiesDataStore>();
 builder.Services.AddDbContext<CityInfoContext>(
     optionsBuilder => optionsBuilder.UseSqlServer(
         builder.Configuration["ConnectionStrings:CityInfoDb"]));
+builder.Services.AddScoped<ICityInfoRepository, CityInfoRepository>();  // Repositories are best fit with scoped
 
 var app = builder.Build();
 
