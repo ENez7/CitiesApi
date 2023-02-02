@@ -80,26 +80,33 @@ namespace CityInfo.Api.Controllers
                 },
                 createdResource);
         }
-        //
-        // // PUT: Full updates
-        // [HttpPut("{pointOfInterestId:int}")]
-        // public ActionResult UpdatePointOfInterest(int cityId, int pointOfInterestId,
-        //     PointOfInterestForUpdateDto pointOfInterestForUpdate)
-        // {
-        //     var city = _citiesDataStore.Cities.FirstOrDefault(city => city.Id == cityId);
-        //     if (city == null) return NotFound();
-        //
-        //     var pointOfInterest = city.PointsOfInterest.FirstOrDefault(point => point.Id == pointOfInterestId);
-        //     if (pointOfInterest == null) return NotFound();
-        //
-        //     // Full update principle || User must include all fields when sending the PUT request
-        //     // If any field is missing, it will be set to default value or null
-        //     pointOfInterest.Name = pointOfInterestForUpdate.Name;
-        //     pointOfInterest.Description = pointOfInterestForUpdate.Description;
-        //
-        //     return NoContent();
-        // }
-        //
+        
+        // PUT: Full updates
+        [HttpPut("{pointOfInterestId:int}")]
+        public async Task<ActionResult> UpdatePointOfInterest(int cityId, int pointOfInterestId,
+            PointOfInterestForUpdateDto pointOfInterestForUpdate)
+        {
+            if (!await _cityInfoRepository.CityExistsAsync(cityId))
+            {
+                return NotFound();
+            }
+
+            var pointOfInterestEntity = await _cityInfoRepository.GetPointOfInterestAsync(cityId, pointOfInterestId);
+            if (pointOfInterestEntity == null)
+            {
+                _logger.LogInformation("Point of interest with ID: {PointOfInterestId} was not found", pointOfInterestId);
+                return NotFound();
+            }
+
+            // Full update principle || User must include all fields when sending the PUT request
+            // If any field is missing, it will be set to default value or null
+            _mapper.Map(pointOfInterestForUpdate, pointOfInterestEntity);
+
+            await _cityInfoRepository.SaveChangesAsync();
+        
+            return NoContent();
+        }
+        
         // // PATCH: Partial update
         // [HttpPatch("{pointOfInterestId:int}")]
         // public ActionResult PartiallyUpdatePointOfInterest(int cityId, int pointOfInterestId,
