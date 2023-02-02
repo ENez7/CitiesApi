@@ -11,6 +11,9 @@ public class PointOfInterest
     [Required]
     [MaxLength(50)]
     public string Name { get; set; }
+
+    [MaxLength(200)]
+    public string? Description { get; set; }
     [ForeignKey("CityId")]  // Foreign key's name from navigation property in this class
     public City? City { get; set; }  // Navigation property (foreign key) by convention a relationship will be created by the ORM
     public int CityId { get; set; }
