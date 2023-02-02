@@ -51,7 +51,7 @@ builder.Services.AddDbContext<CityInfoContext>(
     optionsBuilder => optionsBuilder.UseSqlServer(
         builder.Configuration["ConnectionStrings:CityInfoDb"]));
 builder.Services.AddScoped<ICityInfoRepository, CityInfoRepository>();  // Repositories are best fit with scoped
-
+builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 var app = builder.Build();
 
 // Configure the HTTP request pipeline
