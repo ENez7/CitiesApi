@@ -138,9 +138,6 @@ namespace CityInfo.Api.Controllers
             if (!TryValidateModel(pointOfInterestToPatch))
                 return BadRequest(ModelState); // Check if the Dto is valid after aplying patch
 
-            // pointOfInterest.Name = pointOfInterestToPatch.Name;
-            // pointOfInterest.Description = pointOfInterestToPatch.Description;
-
             _mapper.Map(pointOfInterestToPatch, pointOfInterestEntity);
             await _cityInfoRepository.SaveChangesAsync();
             
