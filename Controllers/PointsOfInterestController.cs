@@ -1,4 +1,5 @@
 using AutoMapper;
+using CityInfo.Api.Entities;
 using CityInfo.Api.Models;
 using CityInfo.Api.Services;
 using Microsoft.AspNetCore.JsonPatch;
@@ -55,33 +56,30 @@ namespace CityInfo.Api.Controllers
             return Ok(_mapper.Map<PointOfInterestDto>(pointOfInterest));
         }
 
-        // [HttpPost]
-        // public ActionResult<PointOfInterestDto> CreatePointOfInterest(int cityId,
-        //     PointOfInterestForCreationDto pointOfInterest)
-        // {
-        //     var city = _citiesDataStore.Cities.FirstOrDefault(city => city.Id == cityId);
-        //     if (city == null) return NotFound();
-        //
-        //     // TODO: Needs to be improved
-        //     var maxId = _citiesDataStore.Cities.SelectMany(c => c.PointsOfInterest).Max(point => point.Id);
-        //
-        //     var finalPointOfInterest = new PointOfInterestDto
-        //     {
-        //         Id = ++maxId,
-        //         Name = pointOfInterest.Name,
-        //         Description = pointOfInterest.Description
-        //     };
-        //
-        //     city.PointsOfInterest.Add(finalPointOfInterest);
-        //
-        //     return CreatedAtRoute("GetPointOfInterest",
-        //         new
-        //         {
-        //             cityId,
-        //             pointOfInterestId = finalPointOfInterest.Id
-        //         },
-        //         finalPointOfInterest);
-        // }
+        [HttpPost]
+        public async Task<ActionResult<PointOfInterestDto>> CreatePointOfInterest(int cityId,
+            PointOfInterestForCreationDto pointOfInterest)
+        {
+            if (!await _cityInfoRepository.CityExistsAsync(cityId))
+            {
+                return NotFound();
+            }
+
+            var finalPointOfInterest = _mapper.Map<PointOfInterest>(pointOfInterest);
+            
+            await _cityInfoRepository.AddPointOfInterestForCityAsync(cityId, finalPointOfInterest);
+            await _cityInfoRepository.SaveChangesAsync();  // Any error at this point implies status code 500
+
+            var createdResource = _mapper.Map<PointOfInterestDto>(finalPointOfInterest);
+            
+            return CreatedAtRoute("GetPointOfInterest",
+                new
+                {
+                    cityId,
+                    pointOfInterestId = createdResource.Id
+                },
+                createdResource);
+        }
         //
         // // PUT: Full updates
         // [HttpPut("{pointOfInterestId:int}")]

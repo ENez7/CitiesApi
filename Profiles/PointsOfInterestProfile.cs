@@ -9,5 +9,6 @@ public class PointsOfInterestProfile : Profile
     public PointsOfInterestProfile()
     {
         CreateMap<PointOfInterest, PointOfInterestDto>();
+        CreateMap<PointOfInterestForCreationDto, PointOfInterest>();
     }
 }

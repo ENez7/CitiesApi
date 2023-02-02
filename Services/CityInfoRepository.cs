@@ -17,7 +17,7 @@ public class CityInfoRepository : ICityInfoRepository
     {
         return await _context.Cities.OrderBy(c => c.Name).ToListAsync();
     }
-
+    // TODO: Add default value to bool variable
     public async Task<City?> GetCityAsync(int cityId, bool includePointsOfInterest)
     {
         if (includePointsOfInterest)
@@ -43,5 +43,16 @@ public class CityInfoRepository : ICityInfoRepository
     {
         return await _context.PointOfInterests.Where(p => p.Id == pointOfInterestId && p.CityId == cityId)
             .FirstOrDefaultAsync();
+    }
+
+    public async Task AddPointOfInterestForCityAsync(int cityId, PointOfInterest pointOfInterest)
+    {
+        var city = await GetCityAsync(cityId, false);
+        city?.PointsOfInterest.Add(pointOfInterest);
+    }
+
+    public async Task<bool> SaveChangesAsync()
+    {
+        return await _context.SaveChangesAsync() >= 0;
     }
 }
