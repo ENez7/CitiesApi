@@ -49,7 +49,7 @@ builder.Services.AddTransient<IMailService, CloudMailService>();
 builder.Services.AddSingleton<CitiesDataStore>();
 builder.Services.AddDbContext<CityInfoContext>(
     optionsBuilder => optionsBuilder.UseSqlServer(
-        "Data Source=DESKTOP-S5G74PE;Initial Catalog=CitiesApi;Integrated Security=True"));
+        builder.Configuration["ConnectionStrings:CityInfoDb"]));
 
 var app = builder.Build();
 
