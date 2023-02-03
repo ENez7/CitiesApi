@@ -19,10 +19,11 @@ public class CitiesController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<ActionResult<IEnumerable<CityWithoutPointsOfInterestDto>>> GetCities()
+    public async Task<ActionResult<IEnumerable<CityWithoutPointsOfInterestDto>>> GetCities(
+        [FromQuery]string? cityName, string? searchQuery)
     {
         // TODO: Add cities with or without points of interest
-        var cityEntities = await _cityInfoRepository.GetCitiesAsync();
+        var cityEntities = await _cityInfoRepository.GetCitiesAsync(cityName, searchQuery);
         return Ok(_mapper.Map<IEnumerable<CityWithoutPointsOfInterestDto>>(cityEntities));
     }
 

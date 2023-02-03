@@ -12,11 +12,34 @@ public class CityInfoRepository : ICityInfoRepository
     {
         _context = context ?? throw new ArgumentNullException(nameof(context));
     }
-    
+
     public async Task<IEnumerable<City>> GetCitiesAsync()
     {
         return await _context.Cities.OrderBy(c => c.Name).ToListAsync();
     }
+
+    public async Task<IEnumerable<City>> GetCitiesAsync(string? cityName, string? searchQuery)
+    {
+        if (string.IsNullOrEmpty(cityName) && string.IsNullOrEmpty(searchQuery)) return await GetCitiesAsync();
+
+        var collection = _context.Cities as IQueryable<City>;
+
+        if (!string.IsNullOrWhiteSpace(cityName))
+        {
+            cityName = cityName.Trim();
+            collection = collection.Where(c => c.Name == cityName);
+        }
+
+        if (!string.IsNullOrWhiteSpace(searchQuery))
+        {
+            searchQuery = searchQuery.Trim();
+            collection = collection.Where(a => a.Name.Contains(searchQuery)
+                                               || (a.Description != null && a.Description.Contains(searchQuery)));
+        }
+        
+        return await collection.OrderBy(c => c.Name).ToListAsync();
+    }
+
     // TODO: Add default value to bool variable
     public async Task<City?> GetCityAsync(int cityId, bool includePointsOfInterest)
     {
@@ -33,7 +56,7 @@ public class CityInfoRepository : ICityInfoRepository
     {
         return await _context.Cities.AnyAsync(c => c.Id == cityId);
     }
-    
+
     public async Task<IEnumerable<PointOfInterest>> GetPointsOfInterestAsync(int cityId)
     {
         return await _context.PointOfInterests.Where(p => p.CityId == cityId).ToListAsync();
