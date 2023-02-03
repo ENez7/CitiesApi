@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace CityInfo.Api.Controllers;
 
 [ApiController]
-// [Authorize]
+[Authorize]
 [ApiVersion("1.0")]
 [ApiVersion("2.0")]
 [Route("api/v{version:apiVersion}/[controller]")] // Base link for this controller
