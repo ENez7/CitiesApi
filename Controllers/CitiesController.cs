@@ -9,7 +9,9 @@ namespace CityInfo.Api.Controllers;
 
 [ApiController]
 // [Authorize]
-[Route("api/[controller]")] // Base link for this controller
+[ApiVersion("1.0")]
+[ApiVersion("2.0")]
+[Route("api/v{version:apiVersion}/[controller]")] // Base link for this controller
 public class CitiesController : ControllerBase
 {
     private readonly ICityInfoRepository _cityInfoRepository;

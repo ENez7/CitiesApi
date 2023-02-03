@@ -8,8 +8,9 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace CityInfo.Api.Controllers;
 
-[Route("api/cities/{cityId:int}/[controller]")] // This is a child of another resource (City)
+[Route("api/v{version:apiVersion}/cities/{cityId:int}/[controller]")] // This is a child of another resource (City)
 // [Authorize(Policy = "MustBeFromAntwerp")]
+[ApiVersion("2.0")]
 [ApiController]
 public class PointsOfInterestController : ControllerBase
 {

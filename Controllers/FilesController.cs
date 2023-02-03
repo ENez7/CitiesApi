@@ -6,6 +6,7 @@ namespace CityInfo.Api.Controllers;
 
 [Route("api/[controller]")]
 // [Authorize]
+[ApiVersion("1.0")]
 [ApiController]
 public class FilesController : ControllerBase
 {
