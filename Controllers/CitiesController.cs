@@ -1,4 +1,5 @@
-﻿using AutoMapper;
+﻿using System.Text.Json;
+using AutoMapper;
 using CityInfo.Api.Models;
 using CityInfo.Api.Services;
 using Microsoft.AspNetCore.Mvc;
@@ -25,8 +26,10 @@ public class CitiesController : ControllerBase
         if (pageSize > MAXCITIESPAGESIZE) pageSize = MAXCITIESPAGESIZE;
         
         // TODO: Add cities with or without points of interest
-        var cityEntities = await _cityInfoRepository
+        var (cityEntities, paginationMetadata) = await _cityInfoRepository
             .GetCitiesAsync(cityName, searchQuery, pageNumber, pageSize);
+        // Pagination metadata ever goes in headers of the response
+        Response.Headers.Add("X-Pagination", JsonSerializer.Serialize(paginationMetadata));
         return Ok(_mapper.Map<IEnumerable<CityWithoutPointsOfInterestDto>>(cityEntities));
     }
 

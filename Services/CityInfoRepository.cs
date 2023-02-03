@@ -18,7 +18,7 @@ public class CityInfoRepository : ICityInfoRepository
         return await _context.Cities.OrderBy(c => c.Name).ToListAsync();
     }
 
-    public async Task<IEnumerable<City>> GetCitiesAsync(string? cityName, string? searchQuery, int pageNumber,
+    public async Task<(IEnumerable<City>, PaginationMetadata)> GetCitiesAsync(string? cityName, string? searchQuery, int pageNumber,
         int pageSize)
     {
         // Implement deferred execution ever
@@ -38,13 +38,19 @@ public class CityInfoRepository : ICityInfoRepository
                                                || (a.Description != null && a.Description.Contains(searchQuery)));
         }
 
+        var totalItemCount = await collection.CountAsync();
+
+        var paginationMetadata = new PaginationMetadata(totalItemCount, pageSize, pageNumber);
+        
         // Pagination needs to happen at the end, otherwise
         // filtering and searching won't ocurr on all the data
         // but a small sample data
-        return await collection.OrderBy(c => c.Name)
+        var cities = await collection.OrderBy(c => c.Name)
             .Skip(pageSize * (pageNumber - 1))
             .Take(pageSize)
             .ToListAsync();
+        
+        return (cities, paginationMetadata);
     }
 
     // TODO: Add default value to bool variable
