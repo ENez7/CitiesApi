@@ -14,7 +14,7 @@ public class CitiesController : ControllerBase
 {
     private readonly ICityInfoRepository _cityInfoRepository;
     private readonly IMapper _mapper;
-    private const int MAXCITIESPAGESIZE = 20;
+    private const int Maxcitiespagesize = 20;
     public CitiesController(ICityInfoRepository cityInfoRepository, IMapper mapper)
     {
         _cityInfoRepository = cityInfoRepository ?? throw new ArgumentNullException(nameof(cityInfoRepository));
@@ -25,7 +25,7 @@ public class CitiesController : ControllerBase
     public async Task<ActionResult<IEnumerable<CityWithoutPointsOfInterestDto>>> GetCities(
         [FromQuery]string? cityName, string? searchQuery, int pageNumber = 1, int pageSize = 10)
     {
-        if (pageSize > MAXCITIESPAGESIZE) pageSize = MAXCITIESPAGESIZE;
+        if (pageSize > Maxcitiespagesize) pageSize = Maxcitiespagesize;
         
         // TODO: Add cities with or without points of interest
         var (cityEntities, paginationMetadata) = await _cityInfoRepository
