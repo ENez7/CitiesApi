@@ -1,3 +1,4 @@
+using System.Reflection;
 using System.Text;
 using CityInfo.Api;
 using CityInfo.Api.DbContexts;
@@ -35,7 +36,14 @@ builder.Services.AddControllers(options =>
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerGen(setupAction =>
+{
+    var xmlCommentsFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+    var xmlCommentsFullPath = Path.Combine(AppContext.BaseDirectory, xmlCommentsFile);
+    
+    setupAction.IncludeXmlComments(xmlCommentsFullPath);
+});
+
 // Adds singleton instance of FileExtensionContentTypeProvider to .NET Core service container.
 // This class provides information about the content type (MIME) for a given file extension. 
 // It is used to set the content type of an HTTP response based on the file extension of a file being served or downloaded.

@@ -36,7 +36,12 @@ public class CitiesController : ControllerBase
         Response.Headers.Add("X-Pagination", JsonSerializer.Serialize(paginationMetadata));
         return Ok(_mapper.Map<IEnumerable<CityWithoutPointsOfInterestDto>>(cityEntities));
     }
-
+    /// <summary>
+    /// Get a city by id
+    /// </summary>
+    /// <param name="id">The id of the city to get</param>
+    /// <param name="includePointsOfInterest">Wheter or not to include points of interest for that city</param>
+    /// <returns>An IActionResult</returns>
     [HttpGet("{id:int}")] // Path parameter
     public async Task<IActionResult> GetCity(int id, bool includePointsOfInterest = false)
     {
