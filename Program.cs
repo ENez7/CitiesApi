@@ -1,8 +1,10 @@
+using System.Text;
 using CityInfo.Api;
 using CityInfo.Api.DbContexts;
 using CityInfo.Api.Services;
 using Microsoft.AspNetCore.StaticFiles;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using Serilog;
 
 Log.Logger = new LoggerConfiguration()
@@ -19,17 +21,17 @@ builder.Host.UseSerilog();
 
 // Add services to the container.
 builder.Services.AddControllers(options =>
-{
-    // Define default input or output format
-    // options.InputFormatters.Add();
-    // options.OutputFormatters.Add();
+    {
+        // Define default input or output format
+        // options.InputFormatters.Add();
+        // options.OutputFormatters.Add();
 
-    // To specify whether the response format is accepted or not
-    // Example: Request XML response but it is not supported by the API
-    options.ReturnHttpNotAcceptable = true;  
-})
+        // To specify whether the response format is accepted or not
+        // Example: Request XML response but it is not supported by the API
+        options.ReturnHttpNotAcceptable = true;
+    })
     .AddNewtonsoftJson()
-    .AddXmlDataContractSerializerFormatters();  // This line adds XML support to the API
+    .AddXmlDataContractSerializerFormatters(); // This line adds XML support to the API
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
@@ -38,8 +40,10 @@ builder.Services.AddSwaggerGen();
 // This class provides information about the content type (MIME) for a given file extension. 
 // It is used to set the content type of an HTTP response based on the file extension of a file being served or downloaded.
 builder.Services.AddSingleton<FileExtensionContentTypeProvider>();
-#if DEBUG  // Compiler directive
-builder.Services.AddTransient<IMailService, LocalMailService>();  // Transient lifetime services are created each time they are requested - lightweight, stateless services
+#if DEBUG // Compiler directive
+builder.Services
+    .AddTransient<IMailService,
+        LocalMailService>(); // Transient lifetime services are created each time they are requested - lightweight, stateless services
 #else
 builder.Services.AddTransient<IMailService, CloudMailService>();
 #endif
@@ -50,13 +54,29 @@ builder.Services.AddSingleton<CitiesDataStore>();
 builder.Services.AddDbContext<CityInfoContext>(
     optionsBuilder => optionsBuilder.UseSqlServer(
         builder.Configuration["ConnectionStrings:CityInfoDb"]));
-builder.Services.AddScoped<ICityInfoRepository, CityInfoRepository>();  // Repositories are best fit with scoped
+builder.Services.AddScoped<ICityInfoRepository, CityInfoRepository>(); // Repositories are best fit with scoped
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+builder.Services.AddAuthentication("Bearer")
+    .AddJwtBearer(options =>
+    {
+        // How token will be validated
+        options.TokenValidationParameters = new TokenValidationParameters
+        {
+            ValidateIssuer = true,
+            ValidateAudience = true,
+            ValidateIssuerSigningKey = true,
+            ValidIssuer = builder.Configuration["Authentication:Issuer"],
+            ValidAudience = builder.Configuration["Authentication:Audience"],
+            IssuerSigningKey =
+                new SymmetricSecurityKey(Encoding.ASCII.GetBytes(builder.Configuration["Authentication:Secret"]))
+        };
+    });
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline
 // Middleware
-if(app.Environment.IsDevelopment())
+if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
@@ -64,6 +84,7 @@ if(app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 app.UseRouting();
+app.UseAuthentication();
 app.UseAuthorization();
 app.UseEndpoints(endpoints =>
 {
