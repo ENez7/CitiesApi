@@ -22,4 +22,9 @@ public class PointOfInterest
     {
         Name = name;
     }
+
+    public override string ToString()
+    {
+        return $"ID: {Id}\nName: {Name}\nDescription: {Description ?? "No description provided."}";
+    }
 }
