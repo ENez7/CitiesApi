@@ -12,8 +12,10 @@ The objective of this project is to build a .NET Core 6 Web API to gain hands-on
  - Implementing CRUD operations on custom entities
  - Using API controllers and annotations
  - Utilizing Entity Framework Core as the Object-Relational Mapping (ORM) framework
+ - Dependency injection and registering services
+ - Repository pattern
  - Implementing search, filtering, and pagination functionality
- - Securing the API with JSON Web Tokens (JWT)
+ - Securing the API with JSON Web Tokens (JWT) and security policies
  - Managing API versioning and documenting API endpoints and functionality.
 
 ## Tools used in developing
