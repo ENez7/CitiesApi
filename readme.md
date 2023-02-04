@@ -16,14 +16,14 @@ The objective of this project is to build a .NET Core 6 Web API to gain hands-on
  - Securing the API with JSON Web Tokens (JWT)
  - Managing API versioning and documenting API endpoints and functionality.
 
-## Tools used to develop
+## Tools used in developing
 
 - [Rider](https://www.jetbrains.com/rider/) by JetBrains<br>
-Note: Rider does not support PM Console yet, instead, use PowerShell console for EF commands
+  Note: Rider currently does not support PM Console, use PowerShell console for EF commands instead
 - [Postman](https://www.postman.com/)
 - [SQL Server Management Studio](https://learn.microsoft.com/en-us/sql/ssms/download-sql-server-management-studio-ssms?view=sql-server-ver16) by Microsoft<br>
-Note: this is replaceable you can use any database management system you want
-- Any browser you want (If needed, set `"launchBrowser"` value to `true` in `launchSettings.json`)
+Note: This can be replaced with any database management system of your choice
+- Any browser of your preference (If needed, set `"launchBrowser"` value to `true` in `launchSettings.json`)
 
 ## Architecture
 
